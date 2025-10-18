@@ -1,4 +1,4 @@
-#include "registreyChanges.h"
+#include "registryChanges.h"
 
 // gets a root HKEY (for example HKEY_LOCAL_MACHINE) "A handle to an open registry key" ( mdsn)
 // subkey is "The name of the registry subkey to be opened" (from mdsn)
@@ -35,7 +35,7 @@ LSTATUS isMonitorKeyResult(HANDLE hEvent, HKEY hKey, BOOL bWatchSubtree)
 }
 
 
-DWORD WINAPI  registryChanges(HKEY root, wchar_t* subkey, double secToWait, BOOL bWatchSubtree)
+DWORD WINAPI registryChanges(HKEY root, const wchar_t* subkey, double secToWait, BOOL bWatchSubtree)
 {
     double monitoringTime = secToWait;
     char changeInfoBuf[512];
@@ -77,7 +77,7 @@ DWORD WINAPI  registryChanges(HKEY root, wchar_t* subkey, double secToWait, BOOL
 
     if (!hEvent)
     {
-        printf("eror creating event %lu\n");
+        printf("eror creating event\n");
         RegCloseKey(hKey);
         return 1;
     }
@@ -101,7 +101,6 @@ DWORD WINAPI  registryChanges(HKEY root, wchar_t* subkey, double secToWait, BOOL
 
         // wait for event to occur ( a change in the directory)
         eventStatus = WaitForSingleObject(hEvent, 1000);
-        printf("event status: , %d \n", eventStatus);
         if (eventStatus == WAIT_OBJECT_0)
         {
             // since subkey parameter is passed as a wide char pointer printf cant print it.
@@ -117,7 +116,7 @@ DWORD WINAPI  registryChanges(HKEY root, wchar_t* subkey, double secToWait, BOOL
             //    [out, optional] LPBOOL                             lpUsedDefaultChar
             //);
             WideCharToMultiByte(CP_UTF8, 0, subkey, -1, changeInfoBuf, sizeof(changeInfoBuf), NULL, NULL);
-            printf("registrey was changed under, %s \n", changeInfoBuf);
+            printf("Registrey was changed under, %s \n", changeInfoBuf);
             // refesh event so no infinitly print the same thing
             monitorKeyResult = isMonitorKeyResult(hEvent, hKey, bWatchSubtree);
             if (monitorKeyResult != ERROR_SUCCESS)
@@ -148,12 +147,3 @@ DWORD WINAPI  registryChanges(HKEY root, wchar_t* subkey, double secToWait, BOOL
 }
 
     
-
-int main()
-{
-    int a = registryChanges(HKEY_CURRENT_USER,
-        L"Software\\Microsoft\\Windows\\CurrentVersion\\Run", 100, FALSE);
-    printf("return value is:, %d" , a);
-
-
-}

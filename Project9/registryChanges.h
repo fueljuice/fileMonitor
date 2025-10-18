@@ -6,6 +6,6 @@
 #include <time.h>
 // registryChanges
 
-DWORD WINAPI registryChanges(HKEY root, const char* subkey);
+DWORD WINAPI registryChanges(HKEY root, const wchar_t* subkey, double secToWait, BOOL bWatchSubtree);
 
 #endif 

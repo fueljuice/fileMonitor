@@ -18,12 +18,18 @@
     <ClCompile Include="monitorDirChanges.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="registry Changes.c">
+    <ClCompile Include="registryChanges.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testRegistreyChange.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="registreyChanges.h">
+    <ClInclude Include="registryChanges.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MonitorDirChanges.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

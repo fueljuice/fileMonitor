@@ -1,14 +1,10 @@
-#include <stdint.h>
-#include <windows.h>
-#include <time.h>
-#include <stdio.h>
-#include <assert.h>
+#include "MonitorDirChanges.h"
 
-LPCWSTR PATH = L"C:\\Users\\zohar\\Desktop\\Monitoring\\";
+LPCWSTR PATH = L"C:\\Users\\XXXXX\\Desktop\\Monitoring\\";
 
-DWORD WINAPI monitorDirChanges(LPVOID lpParam)
+DWORD WINAPI monitorDirChanges(int timeToMonitor)
 {
-    DWORD MonitoringTime = *(PINT)lpParam;
+    int MonitoringTime = timeToMonitor;
     
     // creates handle to a monitored file
     HANDLE file = CreateFile(PATH,
@@ -130,29 +126,29 @@ DWORD WINAPI monitorDirChanges(LPVOID lpParam)
 }
 
 
-//int main()
-//{
-//    printf("Enter the time in seconds to monitor the directory:,  %s\n ", PATH);
-//    INT monitoringTime = 0;
-//    scanf_s("%d", &monitoringTime);
-//
-//    HANDLE DirMonitor = CreateThread(
-//        NULL,
-//        0,
-//        monitorDirChanges,
-//        &monitoringTime,
-//        0,
-//        NULL
-//    );
-//
-//    if (DirMonitor == NULL) {
-//        printf("Failed to create thread. Error: %d\n", GetLastError());
-//        return 1;
-//    }
-//
-//    // Wait for the thread to complete
-//    WaitForSingleObject(DirMonitor, INFINITE);
-//    CloseHandle(DirMonitor);
-//
-//    return 0;
-//}
+int initDirMonitor()
+{
+    printf("Enter the time in seconds to monitor the directory:,  %s\n ", PATH);
+    INT monitoringTime = 0;
+    scanf_s("%d", &monitoringTime);
+
+    HANDLE DirMonitor = CreateThread(
+        NULL,
+        0,
+        monitorDirChanges,
+        &monitoringTime,
+        0,
+        NULL
+    );
+
+    if (DirMonitor == NULL) {
+        printf("Failed to create thread. Error: %d\n", GetLastError());
+        return 1;
+    }
+
+    // Wait for the thread to complete
+    WaitForSingleObject(DirMonitor, INFINITE);
+    CloseHandle(DirMonitor);
+
+    return 0;
+}
