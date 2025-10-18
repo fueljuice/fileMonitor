@@ -15,8 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="File1.c">
+    <ClCompile Include="monitorDirChanges.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="registry Changes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="registreyChanges.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

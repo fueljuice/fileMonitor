@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="File1.c" />
+    <ClCompile Include="monitorDirChanges.c" />
+    <ClCompile Include="registry Changes.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="registreyChanges.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
